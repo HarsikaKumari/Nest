@@ -1,12 +1,10 @@
-import { Controller, Get, Post, Req, Res } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
+import { Request, response, Response } from 'express';
+import { CreateUserDto } from 'src/user/dtos/createUser.dto';
 
 @Controller('users')
 export class UsersController {
-    @Get()
-    getUsers() {
-        return { msg: "hello users", username: "Harsika" };
-    }
+
     @Get('posts')
     getUsersPost() {
         return [{
@@ -22,19 +20,32 @@ export class UsersController {
     }
 
     @Get('posts/comments')
-        getUsersPostsComments() {
-            return [{
-                post: {
-                    postId: 1,
-                    title: "post 1",
-                    comments: "nice one!"
-                }
-            }];
-        }
+    getUsersPostsComments() {
+        return [{
+            post: {
+                postId: 1,
+                title: "post 1",
+                comments: "nice one!"
+            }
+        }];
+    }
 
-        @Post()
-        createuser(@Req() request: Request, @Res() response: Response) {
-            console.log(request.body);
-            response.send("created");            
-        }
+    @Get()
+    getUsers() {
+        return [{ username: "Harsika", email: "harsika@dtos.in" }];
+    }
+    // @Post()
+    // createUser(@Req() request: Request, @Res() response: Response) {
+    //     console.log(request.body);
+    //     response.send("created");
+    // }
+
+    //Dtos
+    @Post('create')
+    createUser(@Body() userData: CreateUserDto) {
+        console.log(userData.email);
+        return {};
+    }
+
+    
 }
