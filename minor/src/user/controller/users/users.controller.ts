@@ -47,5 +47,10 @@ export class UsersController {
         return {};
     }
 
-    
+    // route params!
+    @Get(':id') 
+    getUser(@Req() request: Request, @Res() response: Response) {
+        console.log(request.params);
+        response.send(" ");
+    }
 }
